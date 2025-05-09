@@ -6,15 +6,23 @@
     body {
       font-family: Arial, sans-serif;
       display: flex;
+      height: 100vh;
+      margin: 0;
     }
     aside {
       width: 200px;
       background-color: #f4f4f4;
       padding: 10px;
+      height: 100vh;
+      overflow-y: auto;
+      position: fixed;
     }
     main {
       flex: 1;
       padding: 20px;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
     }
     button {
       display: block;
@@ -24,9 +32,14 @@
       color: white;
       border: none;
       cursor: pointer;
+      text-align: left;
+      width: 100%;
     }
     button:hover {
       background-color: #0056b3;
+    }
+    #activity-details {
+      white-space: pre-line;
     }
   </style>
 </head>
@@ -43,35 +56,11 @@
   <script>
     const activities = {
       "2025-05-10": "All Day - Flying",
-      "2025-05-11": "4:55am - Land in Auckland, 1:40pm - 3:50pm Auckland - Melbourne QF152, 3:15pm - 5:25pm Auckland - Melbourne QF156",
+      "2025-05-11": "4:55am - Land in Auckland\n1:40pm - 3:50pm Auckland - Melbourne QF152\n3:15pm - 5:25pm Auckland - Melbourne QF156",
       "2025-05-12": "11:00pm - Monday workday begins (9am NYC)",
-      "2025-05-13": "7:00am - Monday workday ends (5pm NYC), 11:00pm - Tuesday workday begins (9am NYC)",
-      "2025-05-14": "7:00am - Tuesday workday ends (5pm NYC), 11:00pm - Wednesday workday begins (9am NYC)",
-      "2025-05-15": "7:00am - Wednesday workday ends (5pm NYC), 10:00am - Pick up rental car"
+      "2025-05-13": "7:00am - Monday workday ends (5pm NYC)\n11:00pm - Tuesday workday begins (9am NYC)",
+      "2025-05-14": "7:00am - Tuesday workday ends (5pm NYC)\n11:00pm - Wednesday workday begins (9am NYC)",
+      "2025-05-15": "7:00am - Wednesday workday ends (5pm NYC)\n10:00am - Pick up rental car"
     };
 
-    const datesList = document.getElementById("dates");
-    const activityTitle = document.getElementById("activity-title");
-    const activityDetails = document.getElementById("activity-details");
-
-    Object.keys(activities).forEach(date => {
-      const listItem = document.createElement("li");
-      listItem.textContent = date;
-      listItem.onclick = () => {
-        activityTitle.textContent = `Activity for ${date}`;
-        activityDetails.textContent = activities[date];
-      };
-      datesList.appendChild(listItem);
-    });
-
-    const today = new Date().toISOString().split('T')[0];
-    if (activities[today]) {
-      activityTitle.textContent = `Activity for ${today}`;
-      activityDetails.textContent = activities[today];
-    } else {
-      activityTitle.textContent = "No activity for today";
-      activityDetails.textContent = "";
-    }
-  </script>
-</body>
-</html>
+    const datesList = document.ge
