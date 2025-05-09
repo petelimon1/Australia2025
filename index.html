@@ -4,42 +4,64 @@
   <title>Australia 2025 Activities</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       height: 100vh;
       margin: 0;
+      background-color: #f0f4f8;
+      color: #333;
     }
     aside {
-      width: 200px;
-      background-color: #f4f4f4;
-      padding: 10px;
+      width: 240px;
+      background-color: #2c3e50;
+      padding: 20px;
       height: 100vh;
       overflow-y: auto;
       position: fixed;
+      color: #ecf0f1;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    aside h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #34495e;
+      padding-bottom: 10px;
+    }
+    aside ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    aside li {
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    aside li:hover {
+      text-decoration: underline;
+      color: #1abc9c;
     }
     main {
       flex: 1;
-      padding: 20px;
-      margin-left: 220px;
+      padding: 40px;
+      margin-left: 260px;
       display: flex;
       flex-direction: column;
+      background-color: #ffffff;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
     }
-    button {
-      display: block;
-      margin-bottom: 8px;
-      padding: 8px 12px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      width: 100%;
-    }
-    button:hover {
-      background-color: #0056b3;
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #2c3e50;
     }
     #activity-details {
       white-space: pre-line;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #34495e;
+      background-color: #ecf0f1;
+      padding: 15px;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -50,7 +72,7 @@
   </aside>
   <main>
     <h1 id="activity-title">Activity for Today</h1>
-    <p id="activity-details"></p>
+    <p id="activity-details">No activity for today</p>
   </main>
 
   <script>
@@ -63,4 +85,33 @@
       "2025-05-15": "7:00am - Wednesday workday ends (5pm NYC)\n10:00am - Pick up rental car"
     };
 
-    const datesList = document.ge
+    const datesList = document.getElementById("dates");
+    const activityTitle = document.getElementById("activity-title");
+    const activityDetails = document.getElementById("activity-details");
+
+    function renderDates() {
+      datesList.innerHTML = "";
+      Object.keys(activities).forEach(date => {
+        const listItem = document.createElement("li");
+        listItem.textContent = date;
+        listItem.onclick = () => {
+          activityTitle.textContent = `Activity for ${date}`;
+          activityDetails.textContent = activities[date] || "No activity";
+        };
+        datesList.appendChild(listItem);
+      });
+    }
+
+    renderDates();
+
+    const today = new Date().toISOString().split('T')[0];
+    if (activities[today]) {
+      activityTitle.textContent = `Activity for ${today}`;
+      activityDetails.textContent = activities[today];
+    } else {
+      activityTitle.textContent = "Activity for Today";
+      activityDetails.textContent = "No activity for today";
+    }
+  </script>
+</body>
+</html>
